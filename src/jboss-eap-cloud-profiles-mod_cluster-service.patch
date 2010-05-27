@@ -5,7 +5,7 @@ diff -Naur jboss-eap-5.0/jboss-as/server/cluster/deploy/jbossweb.sar/META-INF/jb
        <!-- Transaction manager for unfinished transaction checking in the CachedConnectionValve -->      
        <depends>jboss:service=TransactionManager</depends>
  
-+      <depends>ModClusterService</depends>
++      <depends>HAModClusterService</depends>
 +
        <!-- Inject the TomcatDeployer -->
        <property name="tomcatDeployer"><inject bean="WarDeployer"/></property>
@@ -17,7 +17,7 @@ diff -Naur jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/META-IN
        <!-- Transaction manager for unfinished transaction checking in the CachedConnectionValve -->      
        <depends>jboss:service=TransactionManager</depends>
  
-+      <depends>ModClusterService</depends>
++      <depends>HAModClusterService</depends>
 +
        <!-- Inject the TomcatDeployer -->
        <property name="tomcatDeployer"><inject bean="WarDeployer"/></property>

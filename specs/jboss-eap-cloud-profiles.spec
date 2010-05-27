@@ -12,6 +12,7 @@ Source1:        %{name}-mod_cluster-listener.patch
 Source2:        %{name}-mod_cluster-service.patch
 Source3:        %{name}-jvm-route.patch
 Source4:        %{name}-s3_ping.patch
+Source5:        %{name}-jmx-access.patch
 Requires:       jboss-eap = %{version}-%{release}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -47,6 +48,7 @@ patch -p1 < %{SOURCE3}
 patch -p1 < %{SOURCE1}
 patch -p1 < %{SOURCE2}
 patch -p1 < %{SOURCE4}
+patch -p1 < %{SOURCE5}
 
 install -d -m 755 $RPM_BUILD_ROOT/etc/sysconfig
 
