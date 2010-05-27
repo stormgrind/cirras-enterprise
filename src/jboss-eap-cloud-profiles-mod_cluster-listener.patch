@@ -1,0 +1,39 @@
+diff -Naur jboss-eap-5.0/jboss-as/server/cluster/deploy/jbossweb.sar/server.xml jboss-eap-5.0-work/jboss-as/server/cluster/deploy/jbossweb.sar/server.xml
+--- jboss-eap-5.0/jboss-as/server/cluster/deploy/jbossweb.sar/server.xml	2010-05-27 12:05:03.327253359 +0200
++++ jboss-eap-5.0-work/jboss-as/server/cluster/deploy/jbossweb.sar/server.xml	2010-05-27 12:11:26.955840494 +0200
+@@ -6,6 +6,9 @@
+    <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
+    <Listener className="org.apache.catalina.core.JasperListener" />
+ 
++   <Listener className="org.jboss.web.tomcat.service.deployers.MicrocontainerIntegrationLifecycleListener"
++       delegateBeanName="HAModClusterService"/>
++
+    <Service name="jboss.web">
+ 
+       <!-- A HTTP/1.1 Connector on port 8080 -->
+diff -Naur jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/server.xml jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/server.xml
+--- jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/server.xml	2010-05-27 12:05:46.640226590 +0200
++++ jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/server.xml	2010-05-27 12:12:02.983838540 +0200
+@@ -6,6 +6,9 @@
+    <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
+    <Listener className="org.apache.catalina.core.JasperListener" />
+ 
++   <Listener className="org.jboss.web.tomcat.service.deployers.MicrocontainerIntegrationLifecycleListener"
++          delegateBeanName="HAModClusterService"/>
++
+    <Service name="jboss.web">
+ 
+       <!-- A HTTP/1.1 Connector on port 8080 -->
+diff -Naur jboss-eap-5.0/jboss-as/server/group/deploy/jbossweb.sar/server.xml jboss-eap-5.0-work/jboss-as/server/group/deploy/jbossweb.sar/server.xml
+--- jboss-eap-5.0/jboss-as/server/group/deploy/jbossweb.sar/server.xml	2010-05-27 12:06:39.503854788 +0200
++++ jboss-eap-5.0-work/jboss-as/server/group/deploy/jbossweb.sar/server.xml	2010-05-27 12:12:18.126839244 +0200
+@@ -6,6 +6,9 @@
+    <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
+    <Listener className="org.apache.catalina.core.JasperListener" />
+ 
++   <Listener className="org.jboss.web.tomcat.service.deployers.MicrocontainerIntegrationLifecycleListener"
++          delegateBeanName="ModClusterService"/>
++          
+    <Service name="jboss.web">
+ 
+       <!-- A HTTP/1.1 Connector on port 8080 -->

@@ -1,5 +1,8 @@
 %define eap_major_version 5.0
-%define eap_user jboss-eap
+%define ews_user jboss-ews
+%define ews_version 1.0.1
+%define ews_major_version 1.0
+
 %define arch i386
 
 %ifarch x86_64
@@ -13,9 +16,10 @@ Release:            1
 License:            LGPL
 Group:              Applications/System
 Source0:            %{name}-%{version}-RHEL5-%{arch}.zip
+Source1:            mod_cluster.conf
 
 Requires(build):    unzip
-Requires(pre):      jboss-eap
+Requires(pre):      jboss-ews
 Requires(post):     /sbin/chkconfig
 BuildRoot:          %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -27,14 +31,22 @@ rm -rf %{name}-%{eap_major_version}
 unzip -q %{SOURCE0} -d %{name}-%{eap_major_version}
 
 %install
-install -d -m 755 $RPM_BUILD_ROOT/opt/jboss-eap-%{version}
-cp -R %{name}-%{eap_major_version}/jboss-eap-%{eap_major_version}/* $RPM_BUILD_ROOT/opt/jboss-eap-%{version}
+install -d -m 755 $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/modules
+
+# modules
+cp -R %{name}-%{eap_major_version}/jboss-eap-%{eap_major_version}/native/lib/httpd/modules/* $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/modules/
+
+install -d -m 755 $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/conf.d
+install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/conf.d/mod_cluster.conf
+
+%post
+sed -i s/"^LoadModule proxy_balancer_module"/"#LoadModule proxy_balancer_module"/ /opt/jboss-ews-%{ews_version}/httpd/conf/httpd.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,%{eap_user},%{eap_user})
+%defattr(-,%{ews_user},%{ews_user})
 /
 
 %changelog

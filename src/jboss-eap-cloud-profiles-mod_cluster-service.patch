@@ -1,0 +1,36 @@
+diff -Naur jboss-eap-5.0/jboss-as/server/cluster/deploy/jbossweb.sar/META-INF/jboss-beans.xml jboss-eap-5.0-work/jboss-as/server/cluster/deploy/jbossweb.sar/META-INF/jboss-beans.xml
+--- jboss-eap-5.0/jboss-as/server/cluster/deploy/jbossweb.sar/META-INF/jboss-beans.xml	2010-05-27 12:05:02.916838559 +0200
++++ jboss-eap-5.0-work/jboss-as/server/cluster/deploy/jbossweb.sar/META-INF/jboss-beans.xml	2010-05-27 12:23:42.385845782 +0200
+@@ -14,6 +14,8 @@
+       <!-- Transaction manager for unfinished transaction checking in the CachedConnectionValve -->      
+       <depends>jboss:service=TransactionManager</depends>
+ 
++      <depends>ModClusterService</depends>
++
+       <!-- Inject the TomcatDeployer -->
+       <property name="tomcatDeployer"><inject bean="WarDeployer"/></property>
+       <!-- Set the securityManagerService used to flush the auth cache on session expiration -->
+diff -Naur jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/META-INF/jboss-beans.xml jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/META-INF/jboss-beans.xml
+--- jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/META-INF/jboss-beans.xml	2010-05-27 12:05:46.624222121 +0200
++++ jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/META-INF/jboss-beans.xml	2010-05-27 12:23:55.209838281 +0200
+@@ -14,6 +14,8 @@
+       <!-- Transaction manager for unfinished transaction checking in the CachedConnectionValve -->      
+       <depends>jboss:service=TransactionManager</depends>
+ 
++      <depends>ModClusterService</depends>
++
+       <!-- Inject the TomcatDeployer -->
+       <property name="tomcatDeployer"><inject bean="WarDeployer"/></property>
+       <!-- Set the securityManagerService used to flush the auth cache on session expiration -->
+diff -Naur jboss-eap-5.0/jboss-as/server/group/deploy/jbossweb.sar/META-INF/jboss-beans.xml jboss-eap-5.0-work/jboss-as/server/group/deploy/jbossweb.sar/META-INF/jboss-beans.xml
+--- jboss-eap-5.0/jboss-as/server/group/deploy/jbossweb.sar/META-INF/jboss-beans.xml	2010-05-27 12:06:39.386839691 +0200
++++ jboss-eap-5.0-work/jboss-as/server/group/deploy/jbossweb.sar/META-INF/jboss-beans.xml	2010-05-27 12:24:09.384840842 +0200
+@@ -14,6 +14,8 @@
+       <!-- Transaction manager for unfinished transaction checking in the CachedConnectionValve -->      
+       <depends>jboss:service=TransactionManager</depends>
+ 
++      <depends>ModClusterService</depends>
++
+       <!-- Inject the TomcatDeployer -->
+       <property name="tomcatDeployer"><inject bean="WarDeployer"/></property>
+       <!-- Set the securityManagerService used to flush the auth cache on session expiration -->

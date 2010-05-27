@@ -1,0 +1,36 @@
+diff -Naur jboss-eap-5.0/jboss-as/server/cluster/deploy/jbossweb.sar/server.xml jboss-eap-5.0-work/jboss-as/server/cluster/deploy/jbossweb.sar/server.xml
+--- jboss-eap-5.0/jboss-as/server/cluster/deploy/jbossweb.sar/server.xml	2010-05-27 12:05:03.327253359 +0200
++++ jboss-eap-5.0-work/jboss-as/server/cluster/deploy/jbossweb.sar/server.xml	2010-05-27 12:30:16.100029719 +0200
+@@ -29,7 +29,7 @@
+            keystorePass="rmi+ssl" sslProtocol = "TLS" />
+       -->
+ 
+-      <Engine name="jboss.web" defaultHost="localhost">
++      <Engine name="jboss.web" defaultHost="localhost" jvmRoute="${jboss.jvmRoute}" backgroundProcessorDelay="10">
+ 
+          <!-- The JAAS based authentication and authorization realm implementation
+          that is compatible with the jboss 3.2.x realm implementation.
+diff -Naur jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/server.xml jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/server.xml
+--- jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/server.xml	2010-05-27 12:05:46.640226590 +0200
++++ jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/jbossweb.sar/server.xml	2010-05-27 12:30:03.293839824 +0200
+@@ -29,7 +29,7 @@
+            keystorePass="rmi+ssl" sslProtocol = "TLS" />
+       -->
+ 
+-      <Engine name="jboss.web" defaultHost="localhost">
++      <Engine name="jboss.web" defaultHost="localhost" jvmRoute="${jboss.jvmRoute}" backgroundProcessorDelay="10">
+ 
+          <!-- The JAAS based authentication and authorization realm implementation
+          that is compatible with the jboss 3.2.x realm implementation.
+diff -Naur jboss-eap-5.0/jboss-as/server/group/deploy/jbossweb.sar/server.xml jboss-eap-5.0-work/jboss-as/server/group/deploy/jbossweb.sar/server.xml
+--- jboss-eap-5.0/jboss-as/server/group/deploy/jbossweb.sar/server.xml	2010-05-27 12:06:39.503854788 +0200
++++ jboss-eap-5.0-work/jboss-as/server/group/deploy/jbossweb.sar/server.xml	2010-05-27 12:30:37.074888518 +0200
+@@ -29,7 +29,7 @@
+            keystorePass="rmi+ssl" sslProtocol = "TLS" />
+       -->
+ 
+-      <Engine name="jboss.web" defaultHost="localhost">
++      <Engine name="jboss.web" defaultHost="localhost" jvmRoute="${jboss.jvmRoute}" backgroundProcessorDelay="10">
+ 
+          <!-- The JAAS based authentication and authorization realm implementation
+          that is compatible with the jboss 3.2.x realm implementation.
