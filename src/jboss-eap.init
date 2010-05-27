@@ -57,10 +57,46 @@ JAVAPTH=${JAVAPTH:-"$JAVA_HOME/bin"}
 #define the classpath for the shutdown class
 JBOSSCP=${JBOSSCP:-"$JBOSS_HOME/bin/shutdown.jar:$JBOSS_HOME/client/jbossall-client.jar"}
 
+if [ `curl -o /dev/null -s -m 5 -w '%{http_code}' http://169.254.169.254/latest/meta-data/ami-id` -eq "200" ]; then
+    EC2_LOCATION=true
+
+    if [ `curl -o /dev/null -s -m 5 -w '%{http_code}' http://169.254.169.254/1.0/user-data` -eq "200" ]; then
+        eval "`curl -s http://169.254.169.254/1.0/user-data`"
+    fi
+fi
+
 memory=`dmesg | grep ^Memory: | awk '{ print $2 }' | awk -F\/ '{ print $2 }' | sed 's/\k//g'`
 JAVA_OPTS="-Xms$(($memory / 1024 - $memory / 10240))M -Xmx$(($memory / 1024 - $memory / 10240))M -XX:PermSize=$(($memory / 1024 / 4))M -XX:MaxPermSize=$(($memory / 1024 / 4))M -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
 
-JBOSSCONF=${JBOSSCONF:-"production"}
+if [ "x$JBOSS_EAP_CLOUD_ENABLED" != "x" ]; then
+    # we have cloud profiles available
+	if [ "x$EC2_LOCATION" != "x" ]; then
+        JBOSSCONF=${JBOSSCONF:-"cluster-ec2"}
+
+        if [ "x$JBOSS_JGROUPS_S3_PING_ACCESS_KEY" != "x" ]; then
+            JAVA_OPTS="$JAVA_OPTS -Djboss.jgroups.s3_ping.access_key=$JBOSS_JGROUPS_S3_PING_ACCESS_KEY"
+        else
+            echo "No JBOSS_JGROUPS_S3_PING_ACCESS_KEY provided."
+            exit 1
+        fi
+
+        if [ "x$JBOSS_JGROUPS_S3_PING_ACCESS_KEY" != "x" ]; then
+            JAVA_OPTS="$JAVA_OPTS -Djboss.jgroups.s3_ping.secret_access_key=$JBOSS_JGROUPS_S3_PING_SECRET_ACCESS_KEY"
+        else
+            echo "No JBOSS_JGROUPS_S3_PING_SECRET_ACCESS_KEY provided."
+            exit 1
+        fi
+
+        if [ "x$JBOSS_JGROUPS_S3_PING_BUCKET" != "x" ]; then
+            JAVA_OPTS="$JAVA_OPTS -Djboss.jgroups.s3_ping.bucket=$JBOSS_JGROUPS_S3_PING_BUCKET"
+        else
+            echo "No JBOSS_JGROUPS_S3_PING_BUCKET provided."
+            exit 1
+        fi
+    else
+        JBOSSCONF=${JBOSSCONF:-"cluster"}
+    fi
+fi
 
 IP_ADDRESS=`ip addr list eth0 | grep "inet " | cut -d' ' -f6 | cut -d/ -f1`
 
