@@ -1,0 +1,21 @@
+diff -Naur jboss-eap-5.0/jboss-as/server/cluster/conf/props/jmx-console-users.properties jboss-eap-5.0-work/jboss-as/server/cluster/conf/props/jmx-console-users.properties
+--- jboss-eap-5.0/jboss-as/server/cluster/conf/props/jmx-console-users.properties	2010-05-27 12:05:19.520838699 +0200
++++ jboss-eap-5.0-work/jboss-as/server/cluster/conf/props/jmx-console-users.properties	2010-05-27 17:40:01.307840589 +0200
+@@ -1,2 +1,2 @@
+ # A sample users.properties file for use with the UsersRolesLoginModule
+-# admin=admin
++admin=admin
+diff -Naur jboss-eap-5.0/jboss-as/server/cluster-ec2/conf/props/jmx-console-users.properties jboss-eap-5.0-work/jboss-as/server/cluster-ec2/conf/props/jmx-console-users.properties
+--- jboss-eap-5.0/jboss-as/server/cluster-ec2/conf/props/jmx-console-users.properties	2010-05-27 12:05:49.597226869 +0200
++++ jboss-eap-5.0-work/jboss-as/server/cluster-ec2/conf/props/jmx-console-users.properties	2010-05-27 17:40:11.346840111 +0200
+@@ -1,2 +1,2 @@
+ # A sample users.properties file for use with the UsersRolesLoginModule
+-# admin=admin
++admin=admin
+diff -Naur jboss-eap-5.0/jboss-as/server/group/conf/props/jmx-console-users.properties jboss-eap-5.0-work/jboss-as/server/group/conf/props/jmx-console-users.properties
+--- jboss-eap-5.0/jboss-as/server/group/conf/props/jmx-console-users.properties	2010-05-27 12:06:40.698086229 +0200
++++ jboss-eap-5.0-work/jboss-as/server/group/conf/props/jmx-console-users.properties	2010-05-27 17:40:22.821839822 +0200
+@@ -1,2 +1,2 @@
+ # A sample users.properties file for use with the UsersRolesLoginModule
+-# admin=admin
++admin=admin
