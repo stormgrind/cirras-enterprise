@@ -19,7 +19,7 @@ Requires(build):    unzip
 Requires:           shadow-utils
 Requires:           coreutils
 Requires:           openssl
-Requires:           distcache apr-util apr
+Requires:           distcache apr-util apr mailcap
 Requires:           java-1.6.0-openjdk
 Requires:           initscripts
 Requires(post):     /sbin/chkconfig
