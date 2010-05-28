@@ -13,7 +13,7 @@
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-NAME="$(basename $0)"
+NAME="jboss-ews-httpd"
 
 if [ -f /etc/sysconfig/jboss-ews ]; then
         . /etc/sysconfig/jboss-ews
