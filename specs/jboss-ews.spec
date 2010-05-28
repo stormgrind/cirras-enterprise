@@ -62,6 +62,7 @@ ln -s /var/run/%{name} $RPM_BUILD_ROOT/opt/%{name}-%{version}/httpd/run
 
 %post
 /sbin/chkconfig --add %{name}-httpd
+/sbin/chkconfig %{name}-httpd off
 
 umask 077
 

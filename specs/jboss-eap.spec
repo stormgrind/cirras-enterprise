@@ -18,7 +18,7 @@ Source13:           JBPAPP-4220.zip
 
 Requires(build):    unzip
 Requires:           shadow-utils
-Requires:           coreutils
+Requires:           coreutils curl
 Requires:           java-1.6.0-openjdk
 Requires:           initscripts
 Requires(post):     /sbin/chkconfig
