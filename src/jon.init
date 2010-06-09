@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# chkconfig: 2345 92 26
+# description: Starts and stops the JON server
+#
+# processname: java
+
+# exit if there is no postgresql installed
+[ `rpm -qa postgresql* | wc -l` -eq "0" ] && exit
+
+[ -f /etc/sysconfig/jon ] && . /etc/sysconfig/jon
+
+memory=`dmesg | grep ^Memory: | awk '{ print $2 }' | awk -F\/ '{ print $2 }' | sed 's/\k//g'`
+
+JAVA_HOME=/usr/lib/jvm/java-1.6.0/
+JON_SERVER_HOME=$JON_HOME
+JON_SERVER_JAVA_OPTS="-Xms$(($memory / 1024 - $memory / 10240))M -Xmx$(($memory / 1024 - $memory / 10240))M -XX:PermSize=$(($memory / 1024 / 4))M -XX:MaxPermSize=$(($memory / 1024 / 4))M"
+JON_SERVER_PRECONFIGURED_FILE=$JON_SERVER_HOME/etc/jon-server.preconfigured
+
+# Configure JON so we don't need to use web configuration wizard
+if [ ! -f $JON_SERVER_PRECONFIGURED_FILE ]; then
+  /usr/share/jon/preconfigure-jon.sh > $JON_SERVER_HOME/preconfigure.log
+
+  [ "$?" = "0" ] && touch $JON_SERVER_PRECONFIGURED_FILE
+fi
+
+. $JON_SERVER_HOME/bin/jon-server.sh

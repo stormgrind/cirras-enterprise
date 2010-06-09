@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# chkconfig: 2345 93 25
+# description: Starts and stops the JON agent
+#
+# processname: java
+# pidfile: /var/run/jon-agent.pid
+
+[ -f /etc/sysconfig/jon-agent ] && . /etc/sysconfig/jon-agent
+
+if [ "$2" = "--update" ]; then
+  # we want to clear JON Admin configuration
+  JON_AGENT_CMDLINE_OPTS="--daemon --cleanconfig"
+fi
+
+. $JON_AGENT_HOME/bin/jon-agent-wrapper.sh
