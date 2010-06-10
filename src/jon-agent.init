@@ -8,6 +8,8 @@
 
 [ -f /etc/sysconfig/jon-agent ] && . /etc/sysconfig/jon-agent
 
+export RHQ_AGENT_JAVA_HOME=/usr/lib/jvm/jre-1.6.0/
+
 if [ "$2" = "--update" ]; then
   # we want to clear RHQ Admin configuration
   RHQ_AGENT_CMDLINE_OPTS="--daemon --cleanconfig"
