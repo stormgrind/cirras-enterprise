@@ -39,8 +39,8 @@ cp -R $RPM_BUILD_DIR/jon-server-%{version}/jbossas/server/default/deploy/rhq.ear
 
 install -d -m 755 $RPM_BUILD_ROOT/etc/sysconfig
 
-echo "JON_AGENT_VERSION=%{version}"              > $RPM_BUILD_ROOT/etc/sysconfig/%{name}
-echo "JON_AGENT_HOME=/opt/%{name}-%{version}"   >> $RPM_BUILD_ROOT/etc/sysconfig/%{name}
+echo "RHQ_AGENT_VERSION=%{version}"              > $RPM_BUILD_ROOT/etc/sysconfig/%{name}
+echo "RHQ_AGENT_HOME=/opt/%{name}-%{version}"   >> $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/%{name}

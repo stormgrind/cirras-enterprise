@@ -1,13 +1,13 @@
 #!/bin/sh
 
-echo "Preconfiguring JON server..."
+echo "Preconfiguring RHQ server..."
 
 [ -f /etc/sysconfig/boxgrinder ]   && . /etc/sysconfig/boxgrinder
 [ -f /etc/sysconfig/jon ]          && . /etc/sysconfig/jon
 
-DATABASE_NAME=jon
-DATABASE_USER=jon
-DATABASE_NAME=jon
+DATABASE_NAME=rhq
+DATABASE_USER=rhq
+DATABASE_NAME=rhq
 DATABASE_PASSWORD=`head -c10 /dev/urandom | md5sum | head -c30`
 
 IP_ADDRESS=`ip addr list eth0 | grep "inet " | cut -d' ' -f6 | cut -d/ -f1`
@@ -37,11 +37,13 @@ if [ $USER_CREATED -eq "0" ]
 then
     echo "Database user $DATABASE_USER not created, creating..."
     /bin/su postgres -c "/usr/bin/createuser -SDR $DATABASE_USER"
-    echo "ALTER USER $DATABASE_USER WITH PASSWORD '$DATABASE_PASSWORD';" | /bin/su postgres -c /usr/bin/psql
     echo "User created."
 else
     echo "Database user $DATABASE_USER already exists, skipping."
 fi
+
+echo "Altering password..."
+echo "ALTER USER $DATABASE_USER WITH PASSWORD '$DATABASE_PASSWORD';" | /bin/su postgres -c /usr/bin/psql
 
 if [ $DATABASE_CREATED -eq "0" ]
 then
@@ -52,12 +54,12 @@ else
     echo "Database $DATABASE_NAME already exists, skipping."
 fi
 
-echo "Reconfiguring jon-server.properties file..."
-sed s/#LOCAL_IP#/$LOCAL_IP/g /usr/share/jon/jon-server.properties | sed s/#PUBLIC_IP#/$PUBLIC_IP/g | sed s/#DATABASE_USER#/$DATABASE_USER/g | sed s/#DATABASE_PASSWORD#/$DATABASE_PASSWORD/g | sed s/#DATABASE_NAME#/$DATABASE_NAME/g > $JON_HOME/bin/jon-server.properties
+echo "Reconfiguring rhq-server.properties file..."
+sed s/#LOCAL_IP#/$LOCAL_IP/g /usr/share/jon/rhq-server.properties | sed s/#PUBLIC_IP#/$PUBLIC_IP/g | sed s/#DATABASE_USER#/$DATABASE_USER/g | sed s/#DATABASE_PASSWORD#/$DATABASE_PASSWORD/g | sed s/#DATABASE_NAME#/$DATABASE_NAME/g > $RHQ_HOME/bin/rhq-server.properties
 echo "File reconfigured."
 
-echo "Changing permissions in $JON_HOME directory..."
-chown jon:jon $JON_HOME -R
+echo "Changing permissions in $RHQ_HOME directory..."
+chown rhq:rhq $RHQ_HOME -R
 echo "Permissions changed."
 
-echo "JON server is preconfigured now."
+echo "RHQ server is preconfigured now."

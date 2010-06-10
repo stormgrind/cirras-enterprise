@@ -7,8 +7,8 @@ BuildArch:      noarch
 Group:          Applications/System
 Source0:        jon-server-%{version}.zip
 Source3:        jon.init
-Source4:        preconfigure-jon.sh
-Source5:        jon-server.properties
+Source4:        preconfigure-rhq.sh
+Source5:        rhq-server.properties
 Source6:        jon-plugin-pack-eap-%{version}.zip
 Source7:        jon-plugin-pack-ews-%{version}.zip
 
@@ -41,6 +41,9 @@ unzip -q %{SOURCE7} -d $RPM_BUILD_DIR
 unzip -q %{SOURCE10} -d $RPM_BUILD_DIR
 unzip -q $RPM_BUILD_DIR/jon-server-%{version}-patch2-overlay.zip -d $RPM_BUILD_DIR
 
+cp -r $RPM_BUILD_DIR/jon-server-%{version}/jbossas/server/default/deploy/rhq.ear/* $RPM_BUILD_DIR/jon-server-%{version}/jbossas/server/default/deploy/rhq.ear.rej
+rm -rf $RPM_BUILD_DIR/jon-server-%{version}/jbossas/server/default/deploy/rhq.ear                                                                        
+
 %install
 install -d -m 755 $RPM_BUILD_ROOT/opt/%{name}-%{version}
 cp -R %{name}-server-%{version}/* $RPM_BUILD_ROOT/opt/%{name}-%{version}
@@ -51,13 +54,13 @@ cp -R %{name}-plugin-pack-eap-%{version}/*.jar $RPM_BUILD_ROOT/opt/%{name}-%{ver
 cp -R %{name}-plugin-pack-eap-%{version}/*.jar $RPM_BUILD_ROOT/opt/%{name}-%{version}/jbossas/server/default/deploy/rhq.ear.rej/rhq-downloads/rhq-plugins
 
 install -d -m 755 $RPM_BUILD_ROOT/usr/share/%{name}
-install -m 755 %{SOURCE4} $RPM_BUILD_ROOT/usr/share/%{name}/preconfigure-jon.sh
-install -m 644 %{SOURCE5} $RPM_BUILD_ROOT/usr/share/%{name}/jon-server.properties
+install -m 755 %{SOURCE4} $RPM_BUILD_ROOT/usr/share/%{name}/preconfigure-rhq.sh
+install -m 644 %{SOURCE5} $RPM_BUILD_ROOT/usr/share/%{name}/rhq-server.properties
 
 install -d -m 755 $RPM_BUILD_ROOT/etc/sysconfig
 
-echo "JON_VERSION=%{version}"            > $RPM_BUILD_ROOT/etc/sysconfig/%{name}
-echo "JON_HOME=/opt/%{name}-%{version}" >> $RPM_BUILD_ROOT/etc/sysconfig/%{name}
+echo "RHQ_VERSION=%{version}"            > $RPM_BUILD_ROOT/etc/sysconfig/%{name}
+echo "RHQ_HOME=/opt/%{name}-%{version}" >> $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -m 755 %{SOURCE3} $RPM_BUILD_ROOT%{_initrddir}/%{name}
@@ -66,15 +69,15 @@ install -m 755 %{SOURCE3} $RPM_BUILD_ROOT%{_initrddir}/%{name}
 rm -Rf $RPM_BUILD_ROOT
 
 %pre
-/usr/sbin/groupadd -r %{name} 2>/dev/null || :
-/usr/sbin/useradd -c "%{name}" -r -s /bin/bash -d /opt/%{name}-%{version} -g %{name} %{name} 2>/dev/null || :
+/usr/sbin/groupadd -r rhq 2>/dev/null || :
+/usr/sbin/useradd -c "rhq" -r -s /bin/bash -d /opt/%{name}-%{version} -g rhq rhq 2>/dev/null || :
 
 %post
 /sbin/chkconfig --add %{name}
 /sbin/chkconfig %{name} on
 
 %files
-%defattr(-,%{name},%{name})
+%defattr(-,rhq,rhq)
 /
 
 %changelog
