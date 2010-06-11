@@ -3,6 +3,7 @@ Name:           rubygems
 Version:        1.3.5
 Release:        1
 License:        Ruby License
+Group:          Development/Libraries
 Requires(pre):  ruby-rdoc
 Source0:        http://production.cf.rubygems.org/rubygems/rubygems-%{version}.tgz
 Requires:       ruby
