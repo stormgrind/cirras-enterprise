@@ -10,6 +10,8 @@ BuildArch:      noarch
 Source0:        rhq-cli-install.sh
 Source1:        import-servers.js
 Source2:        import-servers.sh
+Source3:        ftp://ftp.mozilla.org/pub/mozilla.org/js/rhino1_7R2.zip
+Source4:        http://scripting.dev.java.net/files/documents/4957/37592/jsr223-engines.tar.gz
 Group:          Applications/System
 Requires:       java-1.6.0-openjdk
 Requires:       unzip
@@ -19,6 +21,14 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 Helps with importing and configuring RHQ in CirrAS environment.
+
+%prep
+rm -rf rhino1_7R2
+unzip -q %{SOURCE3}
+
+rm -rf jsr223-engines
+mkdir jsr223-engines
+tar -C jsr223-engines -xf %{SOURCE4}
 
 %install
 install -d -m 755 $RPM_BUILD_ROOT/etc/sysconfig
@@ -34,6 +44,10 @@ install -d -m 755 $RPM_BUILD_ROOT/var/log/%{name}
 install -m 744 %{SOURCE0} $RPM_BUILD_ROOT/usr/share/%{name}
 install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/%{name}
 install -m 744 %{SOURCE2} $RPM_BUILD_ROOT/usr/share/%{name}
+
+install -d -m 755 $RPM_BUILD_ROOT/usr/lib/jvm/jre-1.6.0/lib/ext/
+cp rhino1_7R2/js.jar $RPM_BUILD_ROOT/usr/lib/jvm/jre-1.6.0/lib/ext/
+cp jsr223-engines/javascript/build/js-engine.jar $RPM_BUILD_ROOT/usr/lib/jvm/jre-1.6.0/lib/ext/
 
 %clean
 rm -Rf $RPM_BUILD_ROOT

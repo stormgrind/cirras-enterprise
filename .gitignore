@@ -2,3 +2,4 @@ lib
 build
 log
 *.zip
+sources-cache
