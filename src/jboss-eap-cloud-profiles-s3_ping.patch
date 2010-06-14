@@ -1,20 +1,19 @@
 diff -Naur jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml
 --- jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml	2010-05-27 12:05:46.986847957 +0200
-+++ jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml	2010-05-27 13:27:06.711840474 +0200
-@@ -8,6 +8,7 @@
- 		     singleton_name="shared-udp"
- 		     mcast_port="${jboss.jgroups.udp.mcast_port:45688}"
- 		     mcast_addr="${jboss.partition.udpGroup:228.11.11.11}"
-+		     ip_mcast="false"
- 		     tos="8"
- 		     ucast_recv_buf_size="20000000"
- 		     ucast_send_buf_size="640000"
-@@ -68,7 +69,7 @@
-                 stack below.
-           -->
-           &shared-udp;
--          <PING timeout="2000" num_initial_members="3"/>
-+          <S3_PING access_key="${jboss.jgroups.s3_ping.access_key:}" secret_access_key="${jboss.jgroups.s3_ping.secret_access_key:}" location="${jboss.jgroups.s3_ping.bucket:}" />
-           <MERGE2 max_interval="100000" min_interval="20000"/>
-           <FD_SOCK/>
-           <FD timeout="6000" max_tries="5" shun="true"/>
++++ jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml	2010-06-14 19:37:11.929323310 +0200
+@@ -272,12 +272,13 @@
+ 		           oob_thread_pool.keep_alive_time="1000"
+ 		           oob_thread_pool.queue_enabled="false"
+ 		           oob_thread_pool.rejection_policy="discard"/>
++            <S3_PING access_key="${jboss.jgroups.s3_ping.access_key:}" secret_access_key="${jboss.jgroups.s3_ping.secret_access_key:}" location="${jboss.jgroups.s3_ping.bucket:}" />
+ 		      <!-- Alternative 1: multicast-based automatic discovery. -->   
+-            <MPING timeout="3000"
++            <!-- <MPING timeout="3000"
+                    num_initial_members="3"
+                    mcast_addr="${jboss.partition.udpGroup:230.11.11.11}"
+                    mcast_port="${jgroups.tcp.mping_mcast_port:45700}"
+-                   ip_ttl="${jgroups.udp.ip_ttl:2}"/>            
++                   ip_ttl="${jgroups.udp.ip_ttl:2}"/> -->            
+             <!-- Alternative 2: non multicast-based replacement for MPING. Requires a static configuration
+                  of *all* possible cluster members.
+             <TCPPING timeout="3000"
