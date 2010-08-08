@@ -36,6 +36,9 @@ install -d -m 755 $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/modules
 # modules
 cp -R %{name}-%{eap_major_version}/%{eap_name}-%{eap_major_version}/native/lib/httpd/modules/* $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/modules/
 
+# not sure why there is mod_jk, in EWS is one too!
+rm -f $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/modules/mod_jk.so
+
 install -d -m 755 $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/conf.d
 install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/conf.d/mod_cluster.conf
 
