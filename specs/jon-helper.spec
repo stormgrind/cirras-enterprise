@@ -13,7 +13,7 @@ Source2:        import-servers.sh
 Source3:        ftp://ftp.mozilla.org/pub/mozilla.org/js/rhino1_7R2.zip
 Source4:        http://scripting.dev.java.net/files/documents/4957/37592/jsr223-engines.tar.gz
 Group:          Applications/System
-Requires:       java-1.6.0-openjdk unzip wget cronie initscripts
+Requires:       java-1.6.0-openjdk unzip wget initscripts
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
