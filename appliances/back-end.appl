@@ -1,0 +1,15 @@
+name: back-end
+version: 1
+release: 1
+summary: back-end appliance with JBoss EAP
+hardware:
+  memory: 1024
+appliances:
+  - cirras
+packages:
+  includes:
+    - jboss-eap
+    - jboss-eap-cloud-profiles
+post:
+  base:
+    - "/sbin/chkconfig jboss-eap on"

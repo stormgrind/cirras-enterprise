@@ -1,7 +1,7 @@
-diff -Naur jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml
---- jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml	2010-05-27 12:05:46.986847957 +0200
-+++ jboss-eap-5.0-work/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml	2010-06-14 19:37:11.929323310 +0200
-@@ -272,12 +272,13 @@
+diff -Naur jboss-eap-5.1/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml jboss-eap-5.1-work/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml
+--- jboss-eap-5.1/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml	2010-08-08 13:40:47.292051784 +0200
++++ jboss-eap-5.1-work/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-channelfactory.sar/META-INF/jgroups-channelfactory-stacks.xml	2010-08-08 13:44:19.065806376 +0200
+@@ -275,12 +275,13 @@
  		           oob_thread_pool.keep_alive_time="1000"
  		           oob_thread_pool.queue_enabled="false"
  		           oob_thread_pool.rejection_policy="discard"/>
@@ -10,8 +10,8 @@ diff -Naur jboss-eap-5.0/jboss-as/server/cluster-ec2/deploy/cluster/jgroups-chan
 -            <MPING timeout="3000"
 +            <!-- <MPING timeout="3000"
                     num_initial_members="3"
-                    mcast_addr="${jboss.partition.udpGroup:230.11.11.11}"
-                    mcast_port="${jgroups.tcp.mping_mcast_port:45700}"
+                    mcast_addr="${jboss.jgroups.tcp.mping_mcast_addr,jboss.partition.udpGroup:230.11.11.11}"
+                    mcast_port="${jgroups.tcp.mping_mcast_port,jboss.jgroups.tcp.mping_mcast_port:45700}"
 -                   ip_ttl="${jgroups.udp.ip_ttl:2}"/>            
 +                   ip_ttl="${jgroups.udp.ip_ttl:2}"/> -->            
              <!-- Alternative 2: non multicast-based replacement for MPING. Requires a static configuration

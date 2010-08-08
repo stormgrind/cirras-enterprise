@@ -1,9 +1,10 @@
-%define eap_major_version 5.0
+%define eap_major_version 5.1
+%define eap_user jboss
 
-Summary:        JBoss Enterprise Application Platform cloud profiles
+Summary:        JBoss Enterprise Application Platform Cloud profiles
 Name:           jboss-eap-cloud-profiles
-Version:        5.0.1
-Release:        1
+Version:        5.1.0.Beta
+Release:        20100808
 License:        LGPL
 BuildArch:      noarch
 Group:          Applications/System
@@ -58,9 +59,12 @@ echo "JBOSS_EAP_CLOUD_ENABLED=true" > $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 rm -Rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,jboss-eap,jboss-eap)
+%defattr(-,%{eap_user},%{eap_user})
 /
 
 %changelog
-* Thu Dec 03 2009 Marek Goldmann 5.0.1-1
+* Tue Jul 27 2010 Marek Goldmann 5.1.0.Beta-20100727
+- Upgrade to JBoss EAP 5.1.0.Beta
+
+* Thu Dec 03 2009 Marek Goldmann 5.0.1-20100715
 - Initial release

@@ -1,9 +1,9 @@
 %define rhq_name jon-cli
-%define cli_version 1.3.1.GA
+%define cli_version 3.0.0.GA
 
-Summary:        JON Helper for CirrAS
-Name:           cirras-jon
-Version:        2.3.1.GA
+Summary:        JON Helper
+Name:           jon-helper
+Version:        2.4.0.GA
 Release:        1
 License:        LGPL
 BuildArch:      noarch
@@ -13,10 +13,7 @@ Source2:        import-servers.sh
 Source3:        ftp://ftp.mozilla.org/pub/mozilla.org/js/rhino1_7R2.zip
 Source4:        http://scripting.dev.java.net/files/documents/4957/37592/jsr223-engines.tar.gz
 Group:          Applications/System
-Requires:       java-1.6.0-openjdk
-Requires:       unzip
-Requires:       vixie-cron
-Requires:       initscripts
+Requires:       java-1.6.0-openjdk unzip wget cronie initscripts
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description

@@ -8,12 +8,15 @@
 Summary:            JBoss Enterprise Web Server
 Name:               jboss-ews
 Version:            1.0.1
-Release:            1
+Release:            20100808
 License:            LGPL
 Group:              Applications/System
 Source0:            %{name}-%{version}-RHEL5-%{arch}.zip
 Source1:            %{name}-httpd.init
 Source2:            %{name}.sysconfig
+
+Source10:           JBPAPP-4188.zip
+Source11:           JBPAPP-3906.zip
 
 Requires(build):    unzip
 Requires:           shadow-utils
@@ -33,6 +36,16 @@ By integrating Apache Tomcat, Apache Web Server and all of the common connectors
 %prep
 %setup -n %{name}-%{ews_major_version}
 
+cd $RPM_BUILD_DIR
+
+# Patches BEGIN ----------------------------
+rm -rf JBPAPP-4188
+unzip -q %{SOURCE10}
+
+rm -rf JBPAPP-3906
+unzip -q %{SOURCE11}
+# Patches END ------------------------------
+
 %install
 install -d -m 755 $RPM_BUILD_ROOT/opt/%{name}-%{version}
 cp -R . $RPM_BUILD_ROOT/opt/%{name}-%{version}
@@ -42,6 +55,19 @@ install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/%{name}-httpd
 
 install -d -m 755 $RPM_BUILD_ROOT/etc/sysconfig
 install -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/%{name}-httpd
+
+cd $RPM_BUILD_DIR
+
+# Patches BEGIN ----------------------------
+cd JBPAPP-4188
+cp jasper.jar $RPM_BUILD_ROOT/opt/%{name}-%{version}/tomcat6/lib/
+cd ..
+
+cd JBPAPP-3906
+unzip -q jboss-ews-1.0.1-2010-CVE-patch-bundle-1-RHEL5-%{arch}.zip
+cp -r jboss-ews-1.0/httpd/ $RPM_BUILD_ROOT/opt/jboss-ews-%{version}/httpd/
+cd ..
+# Patches END ------------------------------
 
 echo "JBOSS_EWS_VERSION=%{version}"                                     >> $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 echo "JBOSS_EWS_HOME=/opt/%{name}-\$JBOSS_EWS_VERSION"                  >> $RPM_BUILD_ROOT/etc/sysconfig/%{name}
@@ -110,5 +136,8 @@ rm -rf $RPM_BUILD_ROOT
 /
 
 %changelog
+* Tue May 24 2010 Marek Goldmann 1.0.1-20100808
+- Patch for JBPAPP-4188
+
 * Tue May 24 2010 Marek Goldmann 1.0.1-1
 - Initial release

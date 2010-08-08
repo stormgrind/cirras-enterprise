@@ -1,6 +1,6 @@
 Summary:        JON server
 Name:           jon
-Version:        2.3.1.GA
+Version:        2.4.0.GA
 Release:        1
 License:        LGPL
 BuildArch:      noarch
@@ -11,8 +11,6 @@ Source4:        preconfigure-rhq.sh
 Source5:        rhq-server.properties
 Source6:        jon-plugin-pack-eap-%{version}.zip
 Source7:        jon-plugin-pack-ews-%{version}.zip
-
-Source10:       jon-server-%{version}-patch2.zip
 
 Requires:       shadow-utils
 Requires:       java-1.6.0-openjdk
@@ -34,23 +32,14 @@ An integrated management platform that simplifies the development, testing, depl
 %prep
 rm -rf $RPM_BUILD_DIR
 unzip -q %{SOURCE0} -d $RPM_BUILD_DIR
-
 unzip -q %{SOURCE6} -d $RPM_BUILD_DIR
 unzip -q %{SOURCE7} -d $RPM_BUILD_DIR
-
-unzip -q %{SOURCE10} -d $RPM_BUILD_DIR
-unzip -q $RPM_BUILD_DIR/jon-server-%{version}-patch2-overlay.zip -d $RPM_BUILD_DIR
-
-cp -r $RPM_BUILD_DIR/jon-server-%{version}/jbossas/server/default/deploy/rhq.ear/* $RPM_BUILD_DIR/jon-server-%{version}/jbossas/server/default/deploy/rhq.ear.rej
-rm -rf $RPM_BUILD_DIR/jon-server-%{version}/jbossas/server/default/deploy/rhq.ear                                                                        
 
 %install
 install -d -m 755 $RPM_BUILD_ROOT/opt/%{name}-%{version}
 cp -R %{name}-server-%{version}/* $RPM_BUILD_ROOT/opt/%{name}-%{version}
 
 cp -R %{name}-plugin-pack-ews-%{version}/*.jar $RPM_BUILD_ROOT/opt/%{name}-%{version}/jbossas/server/default/deploy/rhq.ear.rej/rhq-downloads/rhq-plugins
-cp -R %{name}-plugin-pack-eap-%{version}/*.jar $RPM_BUILD_ROOT/opt/%{name}-%{version}/jbossas/server/default/deploy/rhq.ear.rej/rhq-downloads/rhq-plugins
-
 cp -R %{name}-plugin-pack-eap-%{version}/*.jar $RPM_BUILD_ROOT/opt/%{name}-%{version}/jbossas/server/default/deploy/rhq.ear.rej/rhq-downloads/rhq-plugins
 
 install -d -m 755 $RPM_BUILD_ROOT/usr/share/%{name}
@@ -81,5 +70,8 @@ rm -Rf $RPM_BUILD_ROOT
 /
 
 %changelog
+* Sun Aug 08 2010 Marek Goldmann 2.4.0.GA
+* Upgrade to 2.4.0.GA
+
 * Wed Jun 09 2009 Marek Goldmann 2.3.1
 - Initial packaging

@@ -1,9 +1,9 @@
 %define agent_name rhq-enterprise-agent
-%define agent_version 1.3.1.GA
+%define agent_version 3.0.0.GA
 
 Summary:        JON Agent
 Name:           jon-agent
-Version:        2.3.1.GA
+Version:        2.4.0.GA
 Release:        1
 License:        LGPL
 BuildArch:      noarch
@@ -64,5 +64,8 @@ rm -Rf $RPM_BUILD_ROOT
 /
 
 %changelog
+* Wed Sep 04 2010 Marek Goldmann 2.4.0.GA
+- Upgrade to 2.4.0.GA
+
 * Wed Jun 09 2009 Marek Goldmann 2.3.1
 - Initial packaging

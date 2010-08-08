@@ -1,0 +1,50 @@
+name: cirras
+summary: Appliance template for CirrAS Enterprise appliances
+password: cirras
+os:
+  name: fedora
+  version: 13
+hardware:
+  memory: 512
+  partitions:
+    "/":
+      size: 2
+packages:
+  includes:
+    - bash
+    - kernel
+    - grub
+    - e2fsprogs
+    - passwd
+    - policycoreutils
+    - chkconfig
+    - rootfiles
+    - yum
+    - vim-minimal
+    - acpid
+    - dhclient
+    - iputils
+    - openssh-server
+    - openssh-clients
+    - mkinitrd
+    - which
+    - sudo
+    - ruby-devel
+    - make
+    - gcc-c++
+    - wget
+    - cirras-management
+    - system-config-securitylevel-tui
+    - texinfo
+    - curl
+    - jon-agent
+repos:
+  - name: "rhel"
+    baseurl: "file:///mnt/rhel/Server"
+    ephemeral: true
+  - name: "cirras-#ARCH#"
+    baseurl: "file:///mnt/cirras/packages/#OS_NAME#/#OS_VERSION#/RPMS/#ARCH#"
+    ephemeral: true
+  - name: "cirras-noarch"
+    baseurl: "file:///mnt/cirras/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
+    ephemeral: true

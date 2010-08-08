@@ -1,7 +1,8 @@
-%define eap_major_version 5.0
+%define eap_major_version 5.1
 %define ews_user jboss-ews
 %define ews_version 1.0.1
 %define ews_major_version 1.0
+%define eap_name jboss-ep
 
 %define arch i386
 
@@ -11,13 +12,12 @@
 
 Summary:            JBoss Enterprise Application Platform native libraries
 Name:               jboss-eap-native
-Version:            5.0.1
-Release:            1
+Version:            5.1.0.Beta
+Release:            20100808
 License:            LGPL
 Group:              Applications/System
-Source0:            %{name}-%{version}-RHEL5-%{arch}.zip
+Source0:            %{eap_name}-native-%{version}-RHEL5-%{arch}.zip
 Source1:            mod_cluster.conf
-
 Requires(build):    unzip
 Requires(pre):      jboss-ews
 Requires(post):     /sbin/chkconfig
@@ -34,7 +34,7 @@ unzip -q %{SOURCE0} -d %{name}-%{eap_major_version}
 install -d -m 755 $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/modules
 
 # modules
-cp -R %{name}-%{eap_major_version}/jboss-eap-%{eap_major_version}/native/lib/httpd/modules/* $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/modules/
+cp -R %{name}-%{eap_major_version}/%{eap_name}-%{eap_major_version}/native/lib/httpd/modules/* $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/modules/
 
 install -d -m 755 $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/conf.d
 install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/opt/jboss-ews-%{ews_version}/httpd/conf.d/mod_cluster.conf
@@ -50,5 +50,8 @@ rm -rf $RPM_BUILD_ROOT
 /
 
 %changelog
+* Sun Aug 08 2010 Marek Goldmann 5.1.0.Beta-20100808
+- Rebuild
+
 * Tue May 24 2010 Marek Goldmann 5.0.1-1
 - Initial release

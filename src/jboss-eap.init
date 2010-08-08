@@ -1,21 +1,19 @@
 #!/bin/sh
 #
-# jboss-eap             Start up the JBoss Application Server
+# jboss-eap             JBoss Enterprise Application Platform
 #
 # chkconfig: 2345 84 15
-# description: JBoss Application Server
-# processname: jboss-as6
-# config: /etc/jboss-as.conf
-# pidfile: /var/run/jboss-as6.pid
+# description: JBoss Enterprise Application Platform
+# processname: jboss-eap
 
 ### BEGIN INIT INFO
-# Provides: jboss-as6
+# Provides: jboss-eap
 # Required-Start: $network $syslog
 # Required-Stop: $network
 # Default-Start:
 # Default-Stop:
-# Short-Description: Start up the JBoss Application Server
-# Description: JBoss Application Server
+# Short-Description: Start up the JBoss Enterprise Application Platform
+# Description: JBoss Enterprise Application Platform
 ### END INIT INFO
 
 # Source function library.
@@ -107,10 +105,10 @@ IP_ADDRESS=`ip addr list eth0 | grep "inet " | cut -d' ' -f6 | cut -d/ -f1`
 JBOSSSH=${JBOSSSH:-"$JBOSS_HOME/bin/run.sh -c $JBOSSCONF"}
 
 #define the user under which jboss will run, or use RUNASIS to run as the current user
-JBOSSUS=${JBOSSUS:-"${NAME}"}
+JBOSSUS=${JBOSSUS:-"jboss"}
 
 #define the group under which jboss will run
-JBOSSGR=${JBOSSGR:-"${NAME}"}
+JBOSSGR=${JBOSSGR:-"jboss"}
 
 #define the lock file for this jboss instance
 JBOSSLOCK=/var/lock/subsys/$NAME-$JBOSSCONF
