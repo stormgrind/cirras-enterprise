@@ -1,14 +1,14 @@
 name: cirras
 summary: Appliance template for CirrAS Enterprise appliances
 os:
-  name: fedora
-  version: 13
+  name: rhel
+  version: 5
   password: cirras
 hardware:
   memory: 512
   partitions:
-#    "/boot":
-#      size: 0.5
+    "/boot":
+      size: 0.5
     "/":
       size: 2
 packages:
@@ -28,7 +28,6 @@ packages:
     - iputils
     - openssh-server
     - openssh-clients
-#    - mkinitrd
     - which
     - sudo
     - ruby-devel
@@ -41,9 +40,9 @@ packages:
     - jon-agent
     - cronie
 repos:
-#  - name: "rhel"
-#    baseurl: "file:///mnt/rhel/Server"
-#    ephemeral: true
+  - name: "rhel"
+    baseurl: "file:///mnt/rhel/Server"
+    ephemeral: true
   - name: "cirras-#ARCH#"
     baseurl: "file:///mnt/cirras/packages/cirras/packages/#OS_NAME#/#OS_VERSION#/RPMS/#ARCH#"
     ephemeral: true
