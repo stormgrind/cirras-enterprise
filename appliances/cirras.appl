@@ -46,8 +46,8 @@ repos:
 #    baseurl: "file:///mnt/rhel/Server"
 #    ephemeral: true
   - name: "cirras-#ARCH#"
-    baseurl: "file:///mnt/cirras/packages/cirras/#OS_NAME#/#OS_VERSION#/RPMS/#ARCH#"
+    baseurl: "file:///mnt/cirras/packages/cirras/packages/#OS_NAME#/#OS_VERSION#/RPMS/#ARCH#"
     ephemeral: true
   - name: "cirras-noarch"
-    baseurl: "file:///mnt/cirras/packages/cirras/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
+    baseurl: "file:///mnt/cirras/packages/cirras/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
     ephemeral: true
