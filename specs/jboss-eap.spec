@@ -1,6 +1,8 @@
 %define eap_major_version 5.1
 %define eap_profile default
 %define eap_user jboss
+%define runuser jboss
+%define __jar_repack %{nil}
 
 Summary:            JBoss Enterprise Application Platform
 Name:               jboss-eap
@@ -18,9 +20,6 @@ Requires:           java-1.6.0-openjdk
 Requires:           initscripts
 Requires(post):     /sbin/chkconfig
 BuildRoot:          %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
-%define runuser %{name}
-%define __jar_repack %{nil}
 
 %description
 JBoss Enterprise Application Platform (JBoss EAP) is the market-leading, open source enterprise Java platform for developing and deploying innovative and scalable Java applications. Combining a robust, yet flexible, architecture with an open source software license, JBoss EAP has become the most popular middleware system for developers, independent software vendors (ISVs), and enterprises alike. 
