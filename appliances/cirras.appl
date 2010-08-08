@@ -38,7 +38,7 @@ packages:
     - texinfo
     - curl
     - jon-agent
-    - cronie
+    - vixie-cron
 repos:
   - name: "rhel"
     baseurl: "file:///mnt/rhel/Server"
