@@ -28,7 +28,7 @@ packages:
     - iputils
     - openssh-server
     - openssh-clients
-    - mkinitrd
+#    - mkinitrd
     - which
     - sudo
     - ruby-devel
