@@ -35,7 +35,7 @@ gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --fo
 
 /usr/bin/git clone git://github.com/stormgrind/cirras-management.git $RPM_BUILD_ROOT/usr/share/%{name}
 cd $RPM_BUILD_ROOT/usr/share/%{name}
-/usr/bin/git checkout -b enterprise origin/enterprise
+/usr/bin/git checkout -b enterprise-demo origin/enterprise-demo
 
 install -d -m 755 $RPM_BUILD_ROOT/var/log/%{name}
 install -d -m 755 $RPM_BUILD_ROOT/var/lock

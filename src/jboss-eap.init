@@ -189,6 +189,9 @@ JAVA_OPTS="$JAVA_OPTS -Djboss.gossip_refresh=$JBOSS_GOSSIP_REFRESH"
 [ "x$JBOSS_SERVER_PEER_ID" != "x" ] && \
 JAVA_OPTS="$JAVA_OPTS -Djboss.messaging.ServerPeerID=$JBOSS_SERVER_PEER_ID"
 
+[ "x$MANAGEMENT_IP" != "x" ] && \
+JAVA_OPTS="$JAVA_OPTS -Djboss.localds.host=$MANAGEMENT_IP"
+
 [ "x$JBOSS_ADDITIONAL_PARAMS" != "x" ] && \
 JAVA_OPTS="$JAVA_OPTS $JBOSS_ADDITIONAL_PARAMS"
 
