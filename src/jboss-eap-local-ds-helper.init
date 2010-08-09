@@ -1,0 +1,108 @@
+#!/bin/sh
+#
+# jboss-eap-local-ds-helper         PostgreSQL EAP helper
+#
+# chkconfig: 345 85 35
+# description: PostgreSQL EAP helper
+# processname: thin
+
+### BEGIN INIT INFO
+# Provides: jboss-eap-local-ds-helper
+# Required-Start: $network $syslog
+# Required-Stop: $network
+# Default-Start:
+# Default-Stop:
+# Short-Description: PostgreSQL EAP helper
+# Description: PostgreSQL EAP helper
+### END INIT INFO
+
+# Source function library.
+. /etc/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+
+NAME="$(basename $0)"
+
+start() {
+    echo -n "Starting ${NAME}: "
+
+    sleep=0
+    RETVAL=1
+    while [ $sleep -lt 120 -a $RETVAL -eq 1 ]; do
+        sleep 2
+        sleep=`expr $sleep + 5`
+
+        service postgresql status > /dev/null
+
+        if [ $? -eq 0 ]; then
+            sleep 5
+
+            DATABASE_NAME=eap
+            DATABASE_USER=eap
+            DATABASE_PASSWORD=eap
+
+            USER_CREATED=`/bin/su postgres -c "/bin/echo '\du' | /usr/bin/psql -tA" | awk -F\| '{ print $1 }' | grep $DATABASE_USER | wc -l`
+            DATABASE_CREATED=`/bin/su postgres -c "/usr/bin/psql -tAl" | awk -F\| '{ print $1 }' | grep $DATABASE_NAME | wc -l`
+
+            if [ $USER_CREATED -eq "0" ]
+            then
+                /bin/su postgres -c "/usr/bin/createuser -SDR $DATABASE_USER"
+            fi
+
+            echo "ALTER USER $DATABASE_USER WITH PASSWORD '$DATABASE_PASSWORD';" | /bin/su postgres -c /usr/bin/psql > /dev/null
+
+            if [ $DATABASE_CREATED -eq "0" ]
+            then
+                /bin/su postgres -c "/usr/bin/createdb -O $DATABASE_USER $DATABASE_NAME"
+            fi
+
+            RETVAL=0
+        fi
+    done
+
+    if [ $RETVAL -eq 1 ]; then
+        echo_failure
+        exit
+    fi
+
+    echo_success
+}
+
+stop() {
+    RETVAL=0
+    echo_success
+}
+
+status() {
+    RETVAL=0
+    echo_success
+}
+
+case "$1" in
+start)
+    start
+    ;;
+stop)
+    stop
+    ;;
+restart|reload)
+    stop
+    sleep 1
+    start
+    ;;
+status)
+    status
+    ;;
+help)
+    echo "usage: ${NAME} (start|stop|status|restart|help)"
+    ;;
+*)
+    echo "usage: ${NAME} (start|stop|status|restart|help)"
+    exit 1
+esac
+
+exit $RETVAL

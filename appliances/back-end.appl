@@ -10,6 +10,8 @@ packages:
   includes:
     - jboss-eap
     - jboss-eap-cloud-profiles
+    - jboss-eap-local-ds
+    - jboss-eap-cloud-ds
 post:
   base:
     - "/sbin/chkconfig jboss-eap on"
