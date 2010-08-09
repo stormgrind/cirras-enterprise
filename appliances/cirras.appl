@@ -1,7 +1,7 @@
 name: cirras
 summary: Appliance template for CirrAS Enterprise appliances
 os:
-  name: rhel
+  name: centos
   version: 5
   password: cirras
 hardware:
@@ -41,9 +41,9 @@ packages:
     - vixie-cron
     - system-config-securitylevel-tui
 repos:
-  - name: "rhel"
-    baseurl: "file:///mnt/rhel/Server"
-    ephemeral: true
+#  - name: "rhel"
+#    baseurl: "file:///mnt/rhel/Server"
+#    ephemeral: true
   - name: "cirras-#ARCH#"
     baseurl: "file:///mnt/cirras/packages/cirras/packages/#OS_NAME#/#OS_VERSION#/RPMS/#ARCH#"
     ephemeral: true
