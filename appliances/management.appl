@@ -15,7 +15,7 @@ packages:
     - java-1.6.0-openjdk-devel
     - jon
     - jon-helper
-    - postgresql-server
+    - postgresql84-server
 post:
   base:
     - "/sbin/chkconfig postgresql on"

@@ -14,7 +14,7 @@ BuildArch:          noarch
 Source0:            %{name}-%{version}.zip
 Source1:            %{name}.init
 Requires(build):    unzip
-Requires:           shadow-utils
+Requires(pre):      shadow-utils
 Requires:           coreutils curl
 Requires:           java-1.6.0-openjdk
 Requires:           initscripts
