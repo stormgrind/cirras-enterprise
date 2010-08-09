@@ -8,7 +8,7 @@ hardware:
   memory: 512
   partitions:
     "/boot":
-      size: 0.5
+      size: 0.1
     "/":
       size: 2
 packages:

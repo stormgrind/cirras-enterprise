@@ -128,6 +128,8 @@ EOF
 sed -i -e "s:HTTPD='./httpd':HTTPD='$ews_httpd_home/sbin/httpd':g" -e "/HTTPD=/r .tmppostinstallfile" $ews_httpd_home/sbin/apachectl
 rm -f .tmppostinstallfile
 
+ln -s /opt/%{name}-%{version}/httpd /etc/httpd
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
