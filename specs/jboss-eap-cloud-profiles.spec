@@ -44,6 +44,11 @@ cp -R jboss-eap-%{eap_major_version}/mod_cluster/mod-cluster.sar $RPM_BUILD_ROOT
 cp -R jboss-eap-%{eap_major_version}/mod_cluster/mod-cluster.sar $RPM_BUILD_ROOT/opt/jboss-eap-%{version}/jboss-as/server/cluster/deploy/
 cp -R jboss-eap-%{eap_major_version}/mod_cluster/mod-cluster.sar $RPM_BUILD_ROOT/opt/jboss-eap-%{version}/jboss-as/server/cluster-ec2/deploy/
 
+# Enable developer access
+echo "admin=admin" > $RPM_BUILD_ROOT/opt/jboss-eap-%{version}/jboss-as/server/group/conf/props/jmx-console-users.properties
+echo "admin=admin" > $RPM_BUILD_ROOT/opt/jboss-eap-%{version}/jboss-as/server/cluster/conf/props/jmx-console-users.properties
+echo "admin=admin" > $RPM_BUILD_ROOT/opt/jboss-eap-%{version}/jboss-as/server/cluster-ec2/conf/props/jmx-console-users.properties
+
 cd $RPM_BUILD_ROOT/opt/jboss-eap-%{version}
 patch -p1 < %{SOURCE3}
 patch -p1 < %{SOURCE1}
